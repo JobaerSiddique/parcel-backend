@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ParcelRoute = void 0;
+const express_1 = __importDefault(require("express"));
+const validateRequest_1 = __importDefault(require("../../middleware/validateRequest"));
+const parcel_controller_1 = require("./parcel.controller");
+const parcel_zod_1 = require("./parcel.zod");
+const auth_1 = __importDefault(require("../../middleware/auth"));
+const user_constant_1 = require("../user/user.constant");
+const router = express_1.default.Router();
+router.post('/create-parcel', (0, auth_1.default)(user_constant_1.USER_ROLE.customer), (0, validateRequest_1.default)(parcel_zod_1.createParcelSchema), parcel_controller_1.ParcelController.createParcel);
+router.get('/', (0, auth_1.default)(user_constant_1.USER_ROLE.admin), parcel_controller_1.ParcelController.getAllParcel);
+router.get('/customer-parcel', (0, auth_1.default)(user_constant_1.USER_ROLE.customer), parcel_controller_1.ParcelController.getUserParcel);
+router.get('/tracking', (0, auth_1.default)(user_constant_1.USER_ROLE.customer, user_constant_1.USER_ROLE.admin, user_constant_1.USER_ROLE.deliveryAgent), parcel_controller_1.ParcelController.trackingParcel);
+router.patch('/update-parcel/:parcelId', (0, auth_1.default)(user_constant_1.USER_ROLE.admin, user_constant_1.USER_ROLE.deliveryAgent), parcel_controller_1.ParcelController.updateParcelStatus);
+router.delete('/delete/:id', (0, auth_1.default)(user_constant_1.USER_ROLE.customer), parcel_controller_1.ParcelController.deleteParcel);
+exports.ParcelRoute = router;
