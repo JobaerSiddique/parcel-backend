@@ -111,13 +111,13 @@ const result = await parcelQuery.modelQuery;
         throw new AppError(httpStatus.FORBIDDEN,"Parcel is Already Deleted")
     }
 
-      if (parcel.status !== ParcelStatus.PENDING ) {
+      if (parcel.status !== ParcelStatus.PENDING) {
         throw new AppError(
             httpStatus.FORBIDDEN, 
             "Only pending parcels can be marked as deleted"
         );
     }
-    if(parcel?.customer.toString !== userId){
+    if(parcel?.customer.toString() !== userId){
          throw new AppError(
             httpStatus.FORBIDDEN, 
             "You are Not Autzorized User"
