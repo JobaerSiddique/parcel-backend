@@ -11,16 +11,13 @@ const cors_1 = __importDefault(require("cors"));
 const route_1 = __importDefault(require("./app/route"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
-// Define allowed origins
-const allowedOrigins = ['http://localhost:5173', 'https://dapper-nasturtium-bce1b7.netlify.app'];
-// Configure CORS
-app.use((0, cors_1.default)({
-    origin: allowedOrigins,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
-}));
 app.use((0, cookie_parser_1.default)());
+app.use((0, cors_1.default)({
+    origin: 'http://localhost:3000', // Remove trailing slash
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 // use route
 app.get('/', (req, res) => {
     res.send('Hurry Parcel  server is Started');

@@ -98,7 +98,7 @@ const deleteParcelDB = (id, userId) => __awaiter(void 0, void 0, void 0, functio
     if (parcel.status !== parcel_constants_1.ParcelStatus.PENDING) {
         throw new AppError_1.default(http_status_1.default.FORBIDDEN, "Only pending parcels can be marked as deleted");
     }
-    if ((parcel === null || parcel === void 0 ? void 0 : parcel.customer.toString) !== userId) {
+    if ((parcel === null || parcel === void 0 ? void 0 : parcel.customer.toString()) !== userId) {
         throw new AppError_1.default(http_status_1.default.FORBIDDEN, "You are Not Autzorized User");
     }
     parcel === null || parcel === void 0 ? void 0 : parcel.isDeleted = true;
