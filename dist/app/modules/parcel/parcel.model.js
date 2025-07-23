@@ -8,7 +8,7 @@ const parcelSchema = new mongoose_1.Schema({
     customer: {
         type: mongoose_1.Schema.Types.ObjectId,
         required: true,
-        ref: "user",
+        ref: "User",
         index: true
     },
     trackingNumber: {

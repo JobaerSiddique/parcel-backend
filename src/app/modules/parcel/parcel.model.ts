@@ -8,7 +8,7 @@ const parcelSchema = new Schema<IParcel>({
   customer: {
     type: Schema.Types.ObjectId,
     required: true,
-    ref:"user",
+    ref:"User",
     index: true
   },
   trackingNumber: {

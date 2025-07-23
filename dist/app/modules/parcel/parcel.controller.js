@@ -20,6 +20,7 @@ const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const createParcel = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
+    console.log(req.body);
     const parcelData = Object.assign(Object.assign({}, req.body), { customer: (_a = req.user) === null || _a === void 0 ? void 0 : _a.userId, status: parcel_constants_1.ParcelStatus.PENDING });
     const result = yield parcel_service_1.ParcelService.createParcel(parcelData);
     (0, sendResponse_1.default)(res, {
@@ -40,6 +41,7 @@ const getAllParcel = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, v
 }));
 const getUserParcel = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const customerId = req.user.userId;
+    console.log(customerId);
     const result = yield parcel_service_1.ParcelService.getCustomerParcelDB(customerId);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,

@@ -7,7 +7,8 @@ import sendResponse from '../../utils/sendResponse';
 import { signedCookie } from 'cookie-parser';
 
 const createParcel = catchAsync(async (req: Request, res: Response) => {
-  const parcelData = {
+  console.log(req.body);
+    const parcelData = {
     ...req.body,
     customer: req.user?.userId,
     status: ParcelStatus.PENDING
@@ -37,6 +38,7 @@ const getAllParcel = catchAsync(async(req,res)=>{
 
 const getUserParcel = catchAsync(async(req,res)=>{
     const customerId = req.user.userId;
+    console.log(customerId)
     const result = await ParcelService.getCustomerParcelDB(customerId)
     sendResponse(res,{
         statusCode:httpStatus.OK,

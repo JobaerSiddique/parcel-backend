@@ -50,7 +50,7 @@ const result = await parcelQuery.modelQuery;
  }
 
  const getCustomerParcelDB = async(customerId:string)=>{
-   
+   console.log({customerId});
     const parcels = await Parcel.find({ customer: customerId }).populate('customer'); // optional populate if needed
     return parcels;
     

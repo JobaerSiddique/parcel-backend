@@ -51,6 +51,7 @@ const getAllParcelDB = (query) => __awaiter(void 0, void 0, void 0, function* ()
     };
 });
 const getCustomerParcelDB = (customerId) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log({ customerId });
     const parcels = yield parcel_model_1.Parcel.find({ customer: customerId }).populate('customer'); // optional populate if needed
     return parcels;
 });
