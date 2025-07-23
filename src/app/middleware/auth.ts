@@ -59,7 +59,7 @@ const Auth = (...requiredRoles: TUserRole[]) => {
     }
 
     // Verify token
-    jwt.verify(token, config.accessToken as string, (err, decoded) => {
+    jwt.verify(token, config.RefreshToken as string, (err, decoded) => {
       if (err) {
         return res.status(httpStatus.UNAUTHORIZED).json({
           success: false,
