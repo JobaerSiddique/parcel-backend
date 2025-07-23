@@ -56,7 +56,7 @@ const Auth = (...requiredRoles) => {
             });
         }
         // Verify token
-        jsonwebtoken_1.default.verify(token, config_1.default.accessToken, (err, decoded) => {
+        jsonwebtoken_1.default.verify(token, config_1.default.RefreshToken, (err, decoded) => {
             if (err) {
                 return res.status(http_status_1.default.UNAUTHORIZED).json({
                     success: false,
