@@ -24,10 +24,11 @@ const login = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, 
     const { accessToken, refreshToken } = result;
     res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
-        secure: true,
-        sameSite: 'none',
+        secure: process.env.NODE_ENV === 'production', // ✅ true only in production (HTTPS)
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // ✅ lax for localhost
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         path: '/',
-        domain: '.vercel.app', // Only if backend is also *.vercel.app
+        // ✅ Don't set domain at all unless on same root domain
     });
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,

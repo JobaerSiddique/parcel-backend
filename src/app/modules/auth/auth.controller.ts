@@ -10,12 +10,13 @@ const login = catchAsync(async(req,res)=>{
     console.log(req.body);
     const result = await AuthService.LoginUser(email,password)
     const {accessToken,refreshToken}=result
-    res.cookie('refreshToken', refreshToken, {
+ res.cookie('refreshToken', refreshToken, {
   httpOnly: true,
-  secure: true,
-  sameSite: 'none',
+  secure: process.env.NODE_ENV === 'production', // ✅ true only in production (HTTPS)
+  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // ✅ lax for localhost
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
   path: '/',
-  domain: '.vercel.app', // Only if backend is also *.vercel.app
+  // ✅ Don't set domain at all unless on same root domain
 });
   
     sendResponse(res,{
