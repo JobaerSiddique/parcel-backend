@@ -22,7 +22,13 @@ const login = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, 
     console.log(req.body);
     const result = yield auth_service_1.AuthService.LoginUser(email, password);
     const { accessToken, refreshToken } = result;
-    res.cookie('refreshToken', refreshToken);
+    res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'none',
+        path: '/',
+        domain: '.vercel.app', // Only if backend is also *.vercel.app
+    });
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,

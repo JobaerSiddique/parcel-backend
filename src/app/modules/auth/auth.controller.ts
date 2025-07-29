@@ -10,7 +10,13 @@ const login = catchAsync(async(req,res)=>{
     console.log(req.body);
     const result = await AuthService.LoginUser(email,password)
     const {accessToken,refreshToken}=result
-    res.cookie('refreshToken',refreshToken)
+    res.cookie('refreshToken', refreshToken, {
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none',
+  path: '/',
+  domain: '.vercel.app', // Only if backend is also *.vercel.app
+});
   
     sendResponse(res,{
         statusCode:httpStatus.OK,
