@@ -15,7 +15,7 @@ const login = catchAsync(async(req,res)=>{
     secure: process.env.NODE_ENV === 'production', // HTTPS only in production
     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Required for cross-site in production
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days expiration
-    domain: process.env.NODE_ENV === 'production' ? '.yourdomain.com' : undefined, // Set your production domain
+    domain: process.env.NODE_ENV === 'production' ? 'https://parcel-client-iota.vercel.app' : undefined, // Set your production domain
     path: '/',
   });
   
