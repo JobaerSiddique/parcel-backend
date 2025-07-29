@@ -40,6 +40,26 @@ exports.geocodeWithOSM = void 0;
 //     throw new AppError(503, 'Geocoding service temporarily unavailable');
 //   }
 // };
+// import axios from 'axios';
+// import AppError from '../error/AppError';
+// export const geocodeWithOSM = async (address: string) => {
+//   try {
+//     const response = await axios.get(
+//       `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`
+//     );
+//     if (!response.data || response.data.length === 0) {
+//       return null;
+//     }
+//     const { lat, lon, display_name } = response.data[0];
+//     return {
+//       type: 'Point',
+//       coordinates: [parseFloat(lon), parseFloat(lat)],
+//       formattedAddress: display_name,
+//     };
+//   } catch (err) {
+//     throw new AppError(503, 'OpenStreetMap geocoding service unavailable');
+//   }
+// };
 const axios_1 = __importDefault(require("axios"));
 const geocodeWithOSM = (address) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
@@ -52,7 +72,7 @@ const geocodeWithOSM = (address) => __awaiter(void 0, void 0, void 0, function* 
                 addressdetails: 1
             },
             headers: {
-                'User-Agent': 'MyProject/1.0 (myemail@gmail.com)', // REQUIRED
+                'User-Agent': 'YourAppName/1.0 (your@email.com)', // REQUIRED
                 'Accept-Language': 'en'
             },
             timeout: 3000
