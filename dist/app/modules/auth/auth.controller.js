@@ -22,7 +22,14 @@ const login = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, 
     console.log(req.body);
     const result = yield auth_service_1.AuthService.LoginUser(email, password);
     const { accessToken, refreshToken } = result;
-    res.cookie('refreshToken', refreshToken);
+    res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', // HTTPS only in production
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Required for cross-site in production
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days expiration
+        domain: process.env.NODE_ENV === 'production' ? '.yourdomain.com' : undefined, // Set your production domain
+        path: '/',
+    });
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
