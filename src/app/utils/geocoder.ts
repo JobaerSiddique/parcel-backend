@@ -34,25 +34,33 @@
 // };
 
 import axios from 'axios';
-import AppError from '../error/AppError';
 
 export const geocodeWithOSM = async (address: string) => {
   try {
-    const response = await axios.get(
-      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`
-    );
+    const response = await axios.get('https://nominatim.openstreetmap.org/search', {
+      params: {
+        format: 'json',
+        q: address,
+        limit: 1,
+        addressdetails: 1
+      },
+      headers: {
+        'User-Agent': 'MyProject/1.0 (myemail@gmail.com)', // REQUIRED
+        'Accept-Language': 'en'
+      },
+      timeout: 3000
+    });
 
-    if (!response.data || response.data.length === 0) {
-      return null;
-    }
-  
-    const { lat, lon, display_name } = response.data[0];
+    if (!response.data?.length) return null;
+
+    const { lat, lon, display_name, address: details } = response.data[0];
     return {
-      type: 'Point',
       coordinates: [parseFloat(lon), parseFloat(lat)],
-      formattedAddress: display_name,
+      address: display_name,
+      details: details // Contains breakdown (city, country, etc.)
     };
-  } catch (err) {
-    throw new AppError(503, 'OpenStreetMap geocoding service unavailable');
+  } catch (error) {
+    console.error('Geocoding error:', error);
+    return null;
   }
 };

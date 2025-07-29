@@ -8,6 +8,7 @@ import { signedCookie } from 'cookie-parser';
 
 const createParcel = catchAsync(async (req: Request, res: Response) => {
   console.log(req.body);
+  console.log(req?.user?.userId)
     const parcelData = {
     ...req.body,
     customer: req.user?.userId,

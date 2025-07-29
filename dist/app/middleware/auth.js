@@ -49,6 +49,7 @@ const catchAsync_1 = __importDefault(require("../utils/catchAsync"));
 const Auth = (...requiredRoles) => {
     return (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         const token = req.headers.authorization;
+        console.log({ token });
         if (!token) {
             return res.status(http_status_1.default.UNAUTHORIZED).json({
                 success: false,
@@ -56,7 +57,7 @@ const Auth = (...requiredRoles) => {
             });
         }
         // Verify token
-        jsonwebtoken_1.default.verify(token, config_1.default.RefreshToken, (err, decoded) => {
+        jsonwebtoken_1.default.verify(token, config_1.default.accessToken, (err, decoded) => {
             if (err) {
                 return res.status(http_status_1.default.UNAUTHORIZED).json({
                     success: false,

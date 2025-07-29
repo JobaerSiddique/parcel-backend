@@ -46,6 +46,7 @@ const getParcelReport = (0, catchAsync_1.default)((req, res) => __awaiter(void 0
     });
 }));
 const getAllUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("hit");
     const result = yield admin_service_1.AdminService.getAllUserDB(req.query);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,

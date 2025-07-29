@@ -45,6 +45,7 @@ const getParcelReport = catchAsync(async (req, res) => {
 
 
 const getAllUser = catchAsync(async(req,res)=>{
+  console.log("hit");
     const result =await AdminService.getAllUserDB(req.query);
     sendResponse(res,{
         statusCode:httpStatus.OK,

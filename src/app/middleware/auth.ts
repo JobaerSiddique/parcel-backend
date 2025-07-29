@@ -50,7 +50,7 @@ import catchAsync from '../utils/catchAsync';
 const Auth = (...requiredRoles: TUserRole[]) => {
   return catchAsync(async (req, res, next) => {
     const token = req.headers.authorization;
-    
+    console.log({token});
     if (!token) {
       return res.status(httpStatus.UNAUTHORIZED).json({
         success: false,
@@ -59,7 +59,7 @@ const Auth = (...requiredRoles: TUserRole[]) => {
     }
 
     // Verify token
-    jwt.verify(token, config.RefreshToken as string, (err, decoded) => {
+    jwt.verify(token, config.accessToken as string, (err, decoded) => {
       if (err) {
         return res.status(httpStatus.UNAUTHORIZED).json({
           success: false,

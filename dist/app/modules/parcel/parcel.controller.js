@@ -19,9 +19,10 @@ const parcel_constants_1 = require("./parcel.constants");
 const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const createParcel = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+    var _a, _b;
     console.log(req.body);
-    const parcelData = Object.assign(Object.assign({}, req.body), { customer: (_a = req.user) === null || _a === void 0 ? void 0 : _a.userId, status: parcel_constants_1.ParcelStatus.PENDING });
+    console.log((_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.userId);
+    const parcelData = Object.assign(Object.assign({}, req.body), { customer: (_b = req.user) === null || _b === void 0 ? void 0 : _b.userId, status: parcel_constants_1.ParcelStatus.PENDING });
     const result = yield parcel_service_1.ParcelService.createParcel(parcelData);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.CREATED,

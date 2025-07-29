@@ -41,22 +41,34 @@ exports.geocodeWithOSM = void 0;
 //   }
 // };
 const axios_1 = __importDefault(require("axios"));
-const AppError_1 = __importDefault(require("../error/AppError"));
 const geocodeWithOSM = (address) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
-        const response = yield axios_1.default.get(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`);
-        if (!response.data || response.data.length === 0) {
+        const response = yield axios_1.default.get('https://nominatim.openstreetmap.org/search', {
+            params: {
+                format: 'json',
+                q: address,
+                limit: 1,
+                addressdetails: 1
+            },
+            headers: {
+                'User-Agent': 'MyProject/1.0 (myemail@gmail.com)', // REQUIRED
+                'Accept-Language': 'en'
+            },
+            timeout: 3000
+        });
+        if (!((_a = response.data) === null || _a === void 0 ? void 0 : _a.length))
             return null;
-        }
-        const { lat, lon, display_name } = response.data[0];
+        const { lat, lon, display_name, address: details } = response.data[0];
         return {
-            type: 'Point',
             coordinates: [parseFloat(lon), parseFloat(lat)],
-            formattedAddress: display_name,
+            address: display_name,
+            details: details // Contains breakdown (city, country, etc.)
         };
     }
-    catch (err) {
-        throw new AppError_1.default(503, 'OpenStreetMap geocoding service unavailable');
+    catch (error) {
+        console.error('Geocoding error:', error);
+        return null;
     }
 });
 exports.geocodeWithOSM = geocodeWithOSM;
