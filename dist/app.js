@@ -22,6 +22,7 @@ app.use((0, cors_1.default)({
     origin: [
         'http://localhost:3000',
         'https://parcel-client-iota.vercel.app',
+        'https://eparcelcourier.netlify.app'
         // Add other domains as needed
     ],
     credentials: true,
