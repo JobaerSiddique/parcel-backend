@@ -20,13 +20,30 @@ app.use(express.json())
 app.use(cookieParser());
 
 
+// app.use(cors({
+//   origin: ['http://localhost:3000','https://parcel-client-iota.vercel.app'], // Remove trailing slash
+//   credentials: true,
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//   allowedHeaders: ['Content-Type', 'Authorization']
+// }))
 app.use(cors({
-  origin: 'http://localhost:3000', // Remove trailing slash
+  origin: [
+    'http://localhost:3000',
+    'https://parcel-client-iota.vercel.app',
+    // Add other domains as needed
+  ],
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}))
-
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'], // Added PATCH
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'X-Requested-With',
+    'Accept',
+    'Origin'
+  ],
+  exposedHeaders: ['Authorization'], // If you need to expose custom headers
+  maxAge: 86400 // Cache CORS preflight requests for 24 hours
+}));
 
 
 
