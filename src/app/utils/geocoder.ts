@@ -69,7 +69,7 @@ export const geocodeWithOSM = async (address: string) => {
         addressdetails: 1
       },
       headers: {
-        'User-Agent': 'YourAppName/1.0 (your@email.com)', // REQUIRED
+        'User-Agent': 'MyProject/1.0 (myemail@gmail.com)', // REQUIRED
         'Accept-Language': 'en'
       },
       timeout: 3000
