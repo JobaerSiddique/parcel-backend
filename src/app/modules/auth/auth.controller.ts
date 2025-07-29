@@ -10,14 +10,14 @@ const login = catchAsync(async(req,res)=>{
     console.log(req.body);
     const result = await AuthService.LoginUser(email,password)
     const {accessToken,refreshToken}=result
-      res.cookie('refreshToken', refreshToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production', // HTTPS only in production
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Required for cross-site in production
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days expiration
-    domain: process.env.NODE_ENV === 'production' ? 'https://parcel-client-iota.vercel.app' : undefined, // Set your production domain
-    path: '/',
-  });
+  res.cookie('refreshToken', refreshToken, {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production', // HTTPS only in production
+  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days expiration
+  domain: process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined,
+  path: '/',
+});
   
     sendResponse(res,{
         statusCode:httpStatus.OK,
